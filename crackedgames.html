@@ -1,3 +1,4 @@
+<!-- ✅ crackedgames.html with updated CrackOPS styling from image -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,15 +6,14 @@
   <title>Cracked Games - CrackOPS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <style>
     body {
+      margin: 0;
       background: black;
       color: #cc66ff;
       font-family: 'Orbitron', sans-serif;
-      margin: 0;
       overflow: hidden;
-      text-align: center;
-      padding-top: 100px;
     }
     canvas {
       position: fixed;
@@ -23,48 +23,111 @@
       height: 100%;
       z-index: 0;
     }
-    .product-card {
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: transparent;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      z-index: 2;
+    }
+    header h1 {
+      margin: 0;
+      color: #cc66ff;
+      font-size: 24px;
+      text-shadow: 0 0 10px #cc66ff;
+    }
+    .nav {
+      display: flex;
+      gap: 10px;
+    }
+    .nav button {
+      background: transparent;
+      border: 2px solid #cc66ff;
+      color: #cc66ff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav button:hover {
+      background: #cc66ff11;
+      box-shadow: 0 0 15px #cc66ff;
+    }
+    .center-box {
       position: relative;
       z-index: 1;
-      background: rgba(255, 255, 255, 0.03);
+      max-width: 420px;
+      margin: 120px auto;
       padding: 30px;
-      border: 2px solid #cc66ff33;
+      background: #111;
+      border: 2px solid #cc66ff66;
       border-radius: 16px;
-      box-shadow: 0 0 25px #cc66ff22;
-      display: inline-block;
+      box-shadow: 0 0 20px #cc66ff44;
+      text-align: center;
     }
-    .product-title {
-      font-size: 28px;
-      color: transparent;
-      -webkit-text-stroke: 1px #cc66ff;
-      text-shadow: 0 0 10px #cc66ff;
+    .center-box h2 {
+      color: #cc66ff;
+      font-size: 24px;
+      text-shadow: 0 0 8px #cc66ff;
+    }
+    .price {
+      font-size: 18px;
+      margin: 10px 0;
     }
     .buy-btn {
       background: transparent;
       border: 2px solid #cc66ff;
       color: #cc66ff;
-      padding: 12px 30px;
+      padding: 12px 28px;
       border-radius: 10px;
-      cursor: pointer;
-      margin-top: 20px;
       font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 15px;
     }
     .buy-btn:hover {
       background: #cc66ff11;
-      box-shadow: 0 0 20px #cc66ff;
+      box-shadow: 0 0 15px #cc66ff;
+    }
+    ul.features {
+      list-style: none;
+      margin-top: 20px;
+      padding: 0;
+      color: #ccc;
+    }
+    ul.features li::before {
+      content: "✓ ";
+      color: #cc66ff;
     }
   </style>
 </head>
 <body>
 <canvas id="bgCanvas"></canvas>
-<h1>CrackOPS</h1>
-<div class="product-card">
-  <div class="product-title">💾 Cracked Games Access</div>
-  <p>Price: £20 / $26</p>
+<header>
+  <h1>CrackOPS</h1>
+  <div class="nav">
+    <button onclick="window.location.href='library.html'"><i class="fa-solid fa-book"></i> Library</button>
+    <button onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+  </div>
+</header>
+<div class="center-box">
+  <h2><i class="fa-solid fa-floppy-disk"></i> Cracked Games Access</h2>
+  <div class="price">£20 / $26</div>
   <button class="buy-btn" onclick="buy()">Buy Now</button>
-  <p style="margin-top:15px;">
-    <a href="library.html" style="color:#cc66ff; text-decoration:underline;">Go to your library</a>
-  </p>
+  <ul class="features">
+    <li>Premium cracked titles</li>
+    <li>Frequent updates & support</li>
+    <li>One-time payment – no renewal</li>
+  </ul>
 </div>
 <script>
   const keys = Array.from({ length: 1000 }, () =>
@@ -91,7 +154,16 @@
     alert(`✅ Purchase complete. Your key: ${key}`);
   }
 
-  // Falling dots background
+  function logout() {
+  const user = localStorage.getItem("user");
+  if (user) {
+    localStorage.removeItem("user");
+    localStorage.removeItem("purchases_" + user);
+  }
+  window.location.href = "login.html";
+}
+
+  // Falling dots
   const canvas = document.getElementById("bgCanvas");
   const ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth;
