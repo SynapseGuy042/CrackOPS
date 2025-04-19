@@ -1,235 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Cracked Games - CrackOPS</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Orbitron', sans-serif;
-    }
-
     body {
       background: black;
       color: #cc66ff;
+      font-family: 'Orbitron', sans-serif;
       margin: 0;
       overflow: hidden;
+      text-align: center;
+      padding-top: 100px;
     }
-
     canvas {
       position: fixed;
       top: 0;
       left: 0;
+      width: 100%;
+      height: 100%;
       z-index: 0;
     }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 40px;
-      background: rgba(255, 255, 255, 0.02);
-      border-bottom: 1px solid #cc66ff33;
-      z-index: 2;
-      position: relative;
-    }
-
-    header h1 {
-      font-size: 24px;
-      text-shadow: 0 0 10px #cc66ff55;
-    }
-
-    .nav-link {
-      margin-left: 12px;
-      color: #cc66ff;
-      text-decoration: none;
-      font-size: 14px;
-      padding: 6px 12px;
-      border: 1px solid #cc66ff44;
-      border-radius: 8px;
-      transition: 0.2s ease;
-    }
-
-    .nav-link:hover {
-      background: #cc66ff22;
-      box-shadow: 0 0 10px #cc66ff88;
-    }
-
-    #logoutBtn {
-      margin-left: 15px;
-      padding: 6px 14px;
-      background: transparent;
-      border: 2px solid #cc66ff;
-      border-radius: 8px;
-      color: #cc66ff;
-      font-size: 12px;
-      cursor: pointer;
-      box-shadow: 0 0 10px #cc66ff55;
-    }
-
-    #logoutBtn:hover {
-      background: #cc66ff11;
-      box-shadow: 0 0 25px #cc66ffaa;
-    }
-
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 80vh;
-      padding: 40px 20px;
-      position: relative;
-      z-index: 2;
-    }
-
     .product-card {
+      position: relative;
+      z-index: 1;
       background: rgba(255, 255, 255, 0.03);
-      padding: 30px 40px;
+      padding: 30px;
       border: 2px solid #cc66ff33;
       border-radius: 16px;
       box-shadow: 0 0 25px #cc66ff22;
-      max-width: 500px;
-      text-align: center;
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
+      display: inline-block;
     }
-
-    .product-card:hover {
-      transform: scale(1.01) rotateZ(0.2deg);
-      box-shadow: 0 0 50px #cc66ffaa;
-    }
-
     .product-title {
       font-size: 28px;
-      margin-bottom: 10px;
       color: transparent;
       -webkit-text-stroke: 1px #cc66ff;
       text-shadow: 0 0 10px #cc66ff;
     }
-
-    .price {
-      font-size: 20px;
-      margin: 10px 0 30px;
-      color: #fff;
-      text-shadow: 0 0 5px #cc66ff55;
-    }
-
     .buy-btn {
-      padding: 14px 40px;
-      font-size: 16px;
       background: transparent;
-      color: #cc66ff;
       border: 2px solid #cc66ff;
+      color: #cc66ff;
+      padding: 12px 30px;
       border-radius: 10px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px #cc66ff55;
+      margin-top: 20px;
+      font-weight: bold;
     }
-
     .buy-btn:hover {
-      transform: scale(1.05);
       background: #cc66ff11;
-      box-shadow: 0 0 25px #cc66ffcc;
-    }
-
-    .features {
-      margin-top: 30px;
-      font-size: 14px;
-      color: #aaa;
-      text-align: left;
-    }
-
-    .features li {
-      margin-bottom: 8px;
-    }
-
-    .owned-badge {
-      position: absolute;
-      top: -12px;
-      right: -12px;
-      background: #333;
-      color: #cc66ff;
-      font-size: 12px;
-      padding: 5px 10px;
-      border: 1px solid #cc66ff;
-      border-radius: 12px;
+      box-shadow: 0 0 20px #cc66ff;
     }
   </style>
 </head>
 <body>
-
 <canvas id="bgCanvas"></canvas>
-
-<header>
-  <h1>CrackOPS</h1>
-  <div>
-    <a href="library.html" class="nav-link">🧾 Library</a>
-    <button id="logoutBtn" onclick="logout()">Logout</button>
-  </div>
-</header>
-
-<div class="container">
-  <div class="product-card" id="productCard">
-    <div class="product-title">💾 Cracked Games Access</div>
-    <div class="price">£20 / $26</div>
-    <button class="buy-btn" onclick="buy()">Buy Now</button>
-    <ul class="features">
-      <li>✔ Premium cracked titles</li>
-      <li>✔ Frequent updates & support</li>
-      <li>✔ One-time payment — no renewal</li>
-    </ul>
-  </div>
+<h1>CrackOPS</h1>
+<div class="product-card">
+  <div class="product-title">💾 Cracked Games Access</div>
+  <p>Price: £20 / $26</p>
+  <button class="buy-btn" onclick="buy()">Buy Now</button>
+  <p style="margin-top:15px;">
+    <a href="library.html" style="color:#cc66ff; text-decoration:underline;">Go to your library</a>
+  </p>
 </div>
-
 <script>
-  function logout() {
-    localStorage.removeItem("user");
-    sessionStorage.removeItem("user");
-    window.location.href = "index.html";
-  }
+  const keys = Array.from({ length: 1000 }, () =>
+    Array.from({ length: 4 }, () => Math.random().toString(36).substring(2, 6).toUpperCase()).join("-")
+  );
 
   function buy() {
-    const user = localStorage.getItem("user") || sessionStorage.getItem("user");
-    if (!user) {
-      alert("You must be logged in.");
+    const user = localStorage.getItem("user") || prompt("Enter your username");
+    if (!user) return;
+
+    let purchases = JSON.parse(localStorage.getItem("purchases_" + user)) || [];
+
+    if (purchases.find(p => p.name === "Cracked Games")) {
+      alert("You already bought this.");
       return;
     }
 
-    const key = "purchases_" + user;
-    const items = JSON.parse(localStorage.getItem(key)) || [];
+    const key = keys.shift();
+    if (!key) return alert("No keys left.");
 
-    if (!items.includes("Cracked Games")) {
-      items.push("Cracked Games");
-      localStorage.setItem(key, JSON.stringify(items));
-      alert("✅ Purchase successful! Added to your library.");
-      showOwned();
-    } else {
-      alert("You already own this.");
-    }
+    purchases.push({ name: "Cracked Games", key });
+    localStorage.setItem("purchases_" + user, JSON.stringify(purchases));
+
+    alert(`✅ Purchase complete. Your key: ${key}`);
   }
 
-  function showOwned() {
-    const user = localStorage.getItem("user") || sessionStorage.getItem("user");
-    const key = "purchases_" + user;
-    const items = JSON.parse(localStorage.getItem(key)) || [];
-    if (items.includes("Cracked Games")) {
-      const badge = document.createElement("div");
-      badge.className = "owned-badge";
-      badge.innerText = "You Own This";
-      document.getElementById("productCard").appendChild(badge);
-    }
-  }
-
-  const user = localStorage.getItem("user") || sessionStorage.getItem("user");
-  if (!user) {
-    document.getElementById("logoutBtn").style.display = "none";
-  } else {
-    showOwned();
-  }
-
-  // Particle background animation
+  // Falling dots background
   const canvas = document.getElementById("bgCanvas");
   const ctx = canvas.getContext("2d");
   canvas.width = window.innerWidth;
@@ -265,6 +127,5 @@
     canvas.height = window.innerHeight;
   });
 </script>
-
 </body>
 </html>
