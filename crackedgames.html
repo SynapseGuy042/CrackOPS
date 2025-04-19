@@ -31,8 +31,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 40px;
+      padding: 20px 10px;
       z-index: 2;
+      flex-wrap: nowrap;
+      box-sizing: border-box;
     }
     header h1 {
       margin: 0;
@@ -42,20 +44,24 @@
     }
     .nav {
       display: flex;
+      flex-direction: row;
       gap: 10px;
+      flex-shrink: 0;
+      overflow: hidden;
     }
     .nav button {
       background: transparent;
       border: 2px solid #cc66ff;
       color: #cc66ff;
-      padding: 8px 16px;
+      padding: 6px 10px;
       border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
+      font-size: 12px;
       transition: 0.3s;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
     .nav button:hover {
       background: #cc66ff11;
