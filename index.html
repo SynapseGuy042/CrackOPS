@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CrackOPS - Booting Terminal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: black;
+      color: #cc66ff;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    h1 {
+      z-index: 2;
+      font-size: 52px;
+      text-align: center;
+      opacity: 0;
+      color: #cc66ff;
+      text-shadow: 0 0 10px #cc66ff, 0 0 25px #9900ff, 0 0 50px #9900ff55;
+      animation: fadeIn 3s ease-in-out forwards, flicker 2.5s infinite alternate;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes flicker {
+      0% { opacity: 0.9; }
+      50% { opacity: 0.7; transform: scale(1.005); }
+      100% { opacity: 1; }
+    }
+
+    #startBtn, #creditsBtn {
+      z-index: 2;
+      margin-top: 20px;
+      padding: 14px 36px;
+      background: transparent;
+      border: 2px solid #cc66ff;
+      border-radius: 12px;
+      color: #cc66ff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 12px #cc66ff55;
+      opacity: 0;
+      animation: fadeInBtn 2s ease 3s forwards, pulse 1.5s infinite;
+      transition: 0.3s ease;
+    }
+
+    #creditsBtn {
+      animation-delay: 3.5s;
+    }
+
+    #startBtn:hover, #creditsBtn:hover {
+      background: #cc66ff22;
+      box-shadow: 0 0 30px #cc66ffaa;
+    }
+
+    @keyframes fadeInBtn {
+      to { opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 12px #cc66ff55; }
+      50% { box-shadow: 0 0 25px #cc66ffaa; }
+      100% { box-shadow: 0 0 12px #cc66ff55; }
+    }
+
+    #creditsPanel {
+      display: none;
+      z-index: 3;
+      text-align: center;
+    }
+
+    #creditsPanel h2 {
+      color: #cc66ff;
+      font-size: 24px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 15px #cc66ff88;
+    }
+
+    #creditsPanel p {
+      color: #aaa;
+      font-size: 14px;
+      margin: 8px 0;
+    }
+
+    #backBtn {
+      padding: 10px 25px;
+      border: 2px solid #cc66ff;
+      border-radius: 8px;
+      background: transparent;
+      color: #cc66ff;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 15px #cc66ff55;
+      margin-top: 20px;
+    }
+
+    #backBtn:hover {
+      background: #cc66ff11;
+      box-shadow: 0 0 25px #cc66ffaa;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<h1 id="logo">CrackOPS</h1>
+<button id="startBtn" onclick="start()">Start</button>
+<button id="creditsBtn" onclick="showCredits()">Credits</button>
+
+<div id="creditsPanel">
+  <h2>Credits</h2>
+  <p>NEXEN for creating the site 💜</p>
+  <p>Particle engine via HTML5 Canvas</p>
+  <button id="backBtn" onclick="goBack()">Back</button>
+</div>
+
+<script>
+  function start() {
+    const user = localStorage.getItem("user") || sessionStorage.getItem("user");
+    window.location.href = user ? "crackedgames.html" : "login.html";
+  }
+
+  function showCredits() {
+    document.getElementById("logo").style.display = "none";
+    document.getElementById("startBtn").style.display = "none";
+    document.getElementById("creditsBtn").style.display = "none";
+    document.getElementById("creditsPanel").style.display = "block";
+  }
+
+  function goBack() {
+    document.getElementById("logo").style.display = "block";
+    document.getElementById("startBtn").style.display = "inline-block";
+    document.getElementById("creditsBtn").style.display = "inline-block";
+    document.getElementById("creditsPanel").style.display = "none";
+  }
+
+  // Particle canvas
+  const canvas = document.getElementById("bgCanvas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const dots = Array(120).fill().map(() => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2 + 0.5,
+    s: Math.random() * 1 + 0.4
+  }));
+
+  function animate() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#cc66ff55";
+    dots.forEach(d => {
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      ctx.fill();
+      d.y += d.s;
+      if (d.y > canvas.height) {
+        d.y = 0;
+        d.x = Math.random() * canvas.width;
+      }
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+</script>
+
+</body>
+</html>
